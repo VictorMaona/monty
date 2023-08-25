@@ -1,13 +1,12 @@
 #include "monty.h"
-
 /**
- * op_nop - carries out no operations
- * @stack: stack top is double pointed at
- * @line_number: The Monty byte code file line number
+  *f_nop- it gives nothing
+  *@head: it is stack head
+  *@counter: the line number
+  *Return: no for return
  */
-void op_nop(stack_t **stack, unsigned int line_number)
+void f_nop(stack_t **head, unsigned int counter)
 {
-    (void)stack;
-    (void)line_number;
-    /* This opcode does nothing */
+	(void) counter;
+	(void) head;
 }

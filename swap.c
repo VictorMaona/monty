@@ -1,19 +1,31 @@
 #include "monty.h"
-
 /**
- * op_swap - top two components of stack are swaped.
- * @stack: top of the stack double pointer.
- * @line_number: Number of line in Monty byte code file.
- */
-void op_swap(stack_t **stack, unsigned int line_number)
+ * f_swap - combines the stack top two items.
+ * @head: stack of head
+ * @counter: line is number
+ * Return: no for return
+*/
+void f_swap(stack_t **head, unsigned int counter)
 {
-    if (*stack == NULL || (*stack)->next == NULL)
-    {
-        fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	stack_t *h;
+	int len = 0, aux;
 
-    int temp = (*stack)->n;
-    (*stack)->n = (*stack)->next->n;
-    (*stack)->next->n = temp;
+	h = *head;
+	while (h)
+	{
+		h = h->next;
+		len++;
+	}
+	if (len < 2)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	h = *head;
+	aux = h->n;
+	h->n = h->next->n;
+	h->next->n = aux;
 }

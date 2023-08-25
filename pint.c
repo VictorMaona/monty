@@ -1,17 +1,19 @@
 #include "monty.h"
-
 /**
- * op_pint - value at top of stack is printed.
- * @stack: top of the stack of double pointer.
- * @line_number: Monty byte code file line number.
- */
-void op_pint(stack_t **stack, unsigned int line_number)
+ * f_pint - from the top prints
+ * @head: stack for head
+ * @counter: line is number
+ * Return: no for return
+*/
+void f_pint(stack_t **head, unsigned int counter)
 {
-    if (*stack == NULL)
-    {
-        fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
-        exit(EXIT_FAILURE);
-    }
-
-    printf("%d\n", (*stack)->n);
+	if (*head == NULL)
+	{
+		fprintf(stderr, "L%u: can't pint, stack empty\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", (*head)->n);
 }

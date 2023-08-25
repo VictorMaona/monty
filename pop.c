@@ -1,23 +1,23 @@
 #include "monty.h"
-
 /**
- * op_pop - removes stack top member.
- * @stack: Top of the stack a double pointer.
- * @line_number: Monty byte code file line number.
- */
-void op_pop(stack_t **stack, unsigned int line_number)
+ * f_pop - from the top print
+ * @head: stack of head
+ * @counter: line is number
+ * Return: no for return
+*/
+void f_pop(stack_t **head, unsigned int counter)
 {
-    if (*stack == NULL)
-    {
-        fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
-        exit(EXIT_FAILURE);
-    }
+	stack_t *h;
 
-    stack_t *temp = *stack;
-    *stack = (*stack)->next;
-
-    if (*stack)
-        (*stack)->prev = NULL;
-
-    free(temp);
+	if (*head == NULL)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
+	}
+	h = *head;
+	*head = h->next;
+	free(h);
 }
