@@ -1,9 +1,9 @@
-,          Read first digit
-+          Store the first digit
-,          Read second digit
+,          Read first digits
++          Store the first digits
+,          Read second digits
 [          Loop while second digit is not zero
-  -        Decrement the second digit
-  >+       Increment the first digit
-  <-       Move back to the second digit
+  -        Decrement the second digits
+  >+       Increment the first digits
+  <-       Move back to the second digits
 ]
-.          Print the result
+.          Print the results
