@@ -1,51 +1,84 @@
 #include "monty.h"
+stack_t *head = NULL;
 
 /**
- * main - Monty code to interpreter
- * @argc: argument on count
- * @argv: array arguments
- * Return: On success returns 0
+ * main - its entry point
+ * @argc: Arguments are significant
+ * @argv: Arguments list
+ * Return: always give 0
  */
+
 int main(int argc, char *argv[])
 {
-	char *content;
-	FILE *file;
-	size_t size = 0;
-	ssize_t read_line = 1;
-	stack_t *stack = NULL;
-	unsigned int counter = 0;
-
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-
-	file = fopen(argv[1], "r");
-	bus.file = file;
-
-	if (!file)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
-
-	while (read_line > 0)
-	{
-		content = NULL;
-		read_line = getline(&content, &size, file);
-		bus.content = content;
-		counter++;
-
-		if (read_line > 0)
-		{
-			execute(content, &stack, counter, file);
-		}
-
-		free(content);
-	}
-
-	free_stack(stack);
-	fclose(file);
+	open_file(argv[1]);
+	free_nodes();
 	return (0);
+}
+
+/**
+ * create_node - builds a node.
+ * @n: digit be entered inside the node.
+ * Return: node pointer is returned upon success if not NULL.
+ */
+stack_t *create_node(int n)
+{
+	stack_t *node;
+
+	node = malloc(sizeof(stack_t));
+	if (node == NULL)
+		err(4);
+	node->next = NULL;
+	node->prev = NULL;
+	node->n = n;
+	return (node);
+}
+
+/**
+ * free_nodes - releasing memory that linked stack nodes.
+ * @head - monitoring the top node
+ */
+void free_nodes(void)
+{
+	stack_t *tmp;
+
+	if (head == NULL)
+		return;
+
+	while (head != NULL)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp);
+	}
+}
+
+
+/**
+ * add_to_queue - node in the queue.
+ * @new_node: node new pointer.
+ * @ln: Opcode line number.
+ */
+void add_to_queue(stack_t **new_node, __attribute__((unused))unsigned int ln)
+{
+	stack_t *tmp;
+
+	if (new_node == NULL || *new_node == NULL)
+		exit(EXIT_FAILURE);
+	if (head == NULL)
+	{
+		head = *new_node;
+		return;
+	}
+	tmp = head;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+
+	tmp->next = *new_node;
+	(*new_node)->prev = tmp;
+
 }
